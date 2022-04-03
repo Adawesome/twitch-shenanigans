@@ -1,4 +1,6 @@
 const tmi = require('tmi.js');
+const events = require('./utils/events/handlers');
+const { onMessageHandler } = require('./utils/events/messages');
 const { rollDice } = require('./utils/commands');
 require('dotenv').config()
 
@@ -17,30 +19,11 @@ const opts = {
 const client = new tmi.client(opts);
 
 // Register our event handlers (defined below)
+// https://github.com/tmijs/docs/blob/gh-pages/_posts/v1.4.2/2019-03-03-Events.md
 client.on('message', onMessageHandler);
-client.on('connected', onConnectedHandler);
+client.on('connected', events.onConnectedHandler);
+client.on('roomstate', events.onRoomstateHandler);
+client.on('disconnected', events.onDisconnectedHandler);
 
 // Connect to Twitch:
 client.connect();
-
-// Called every time a message comes in
-function onMessageHandler (target, context, msg, self) {
-  if (self) { return; } // Ignore messages from the bot
-
-  // Remove whitespace from chat message
-  const commandName = msg.trim();
-
-  // If the command is known, let's execute it
-  if (commandName === '!dice') {
-    const num = rollDice();
-    client.say(target, `You rolled a ${num}`);
-    console.log(`* Executed ${commandName} command`);
-  } else {
-    console.log(`* Unknown command ${commandName}`);
-  }
-}
-
-// Called every time the bot connects to Twitch chat
-function onConnectedHandler (addr, port) {
-  console.log(`* Connected to ${addr}:${port}`);
-}
