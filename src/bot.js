@@ -1,4 +1,5 @@
 const tmi = require('tmi.js');
+const { rollDice } = require('./utils/commands');
 require('dotenv').config()
 
 // Define configuration options
@@ -37,12 +38,6 @@ function onMessageHandler (target, context, msg, self) {
   } else {
     console.log(`* Unknown command ${commandName}`);
   }
-}
-
-// Function called when the "dice" command is issued
-function rollDice () {
-  const sides = 6;
-  return Math.floor(Math.random() * sides) + 1;
 }
 
 // Called every time the bot connects to Twitch chat

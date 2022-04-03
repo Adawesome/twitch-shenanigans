@@ -1,0 +1,27 @@
+{
+  "name": "src",
+  "version": "0.0.1a",
+  "description": "Twitch bot to support my friend's streams.",
+  "main": "bot.js",
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "prettier": "^2.6.2",
+    "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Adawesome/twitch-shenanigans/tree/main"
+  },
+  "keywords": [
+    "twitch",
+    "tmi",
+    "video",
+    "games"
+  ],
+  "author": "Adawesome",
+  "license": "MIT"
+}
